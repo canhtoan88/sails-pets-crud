@@ -45,10 +45,9 @@ petId = params.petId
 petId = params.petId
 --> Update name or imagelink of pet
 
-### uploadPet API: 'post /pet/{petId}/uploadImage'
-body: {
-  imageLink: imageLinkOfPet
-}
+### uploadPetImage API: 'post /pet/{petId}/uploadImage'
+#### petId = params.petId
+#### image = file('image')
 --> Update imagelink of pet
 
 ### deletePet API: 'delete /pet/{petId}'
