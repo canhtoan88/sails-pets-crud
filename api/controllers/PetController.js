@@ -1,40 +1,22 @@
+const PetServices = require('../services/pet')
+
 module.exports = {
-    findPetById: async (req, res) => {
-        if (req.params.id) {
-            const id = req.params.id;
-            const petInfo = await Pet.findOne({_id: id});
-
-            return res.json(petInfo)
-        } else return res.badRequest({error: 'No any params!!'})
+    findPetById: (req, res) => {
+        PetServices.findPetByIdServices(req, res);
     },
-    createPet: async (req, res) => {
-        if (req.body.name) {
-            const name = req.body.name;
-            const pet = await Pet.create({name: name});
-
-            return res.json({result: 'Pet ' + name + ' was created!'});
-        } else return res.badRequest({error: 'Not enough query params!'})
+    getAllPet: (req, res) => {
+        PetServices.getAllPetService(req, res);
     },
-    uploadImage: async (req, res) => {
-        //if (req.params.id)
-        if (req.params.id && req.body.imageLink){
-            const id = req.params.id;
-            const imageLink = req.body.imageLink;
-            const pet = await Pet.updateOne({_id: id}, {imageLink: imageLink})
-
-            return res.json(pet)
-        } else res.badRequest({error: 'No any image link!!'})
+    createPet: (req, res) => {
+        PetServices.createPetServices(req, res)
+    },
+    uploadImage: (req, res) => {
+        PetServices.uploadImageServices(req, res);
     },
     updatePet: (req, res) => {
-        return res.json({pet: 'update pet'})
+        PetServices.updatePetServices(req, res);
     },
-    deletePet: async (req, res) => {
-        if (req.params.id) {
-            const id = req.params.id;
-
-            const pet = await Pet.destroyOne({_id: id});
-            
-            return res.json(pet.name + ' was destroyed!')
-        } else return res.badRequest({error: 'Pet id is neccessary!'})
+    deletePet: (req, res) => {
+        PetServices.deletePetServices(req, res);
     }
 }

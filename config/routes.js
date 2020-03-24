@@ -26,6 +26,7 @@ module.exports.routes = {
   'delete /pet/:id': 'PetController/deletePet',
   'post /pet/:id/uploadImage': 'PetController/uploadImage',
 
+  'get /pet/all-pet': 'PetController/getAllPet',
   'post /create-pet': 'PetController/createPet'
 
 
