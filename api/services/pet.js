@@ -33,7 +33,8 @@ module.exports = {
                 saveAs: Date.now() + '-' + req.file('image')._readableState.buffer.head.data.filename
             }, async (err, files) => {
                 if (err) return res.serverError(err);
-                const imageLink = files[0].fd;
+                const imageLink = files[0].fd.slice(files[0].fd.indexOf('asset'));
+                console.log(files[0].fd.slice(files[0].fd.indexOf('asset')))
                 
                 //const imageLink = req.body.imageLink;
                 const pet = await Pet.updateOne({_id: id}, {imageLink: imageLink})
