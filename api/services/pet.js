@@ -24,9 +24,13 @@ module.exports = {
             const id = req.params.id;
 
             req.file('image').upload({
-                //maxBytes: 10000000, //~10mb
+                // Max size
+                // maxBytes: 5*1024*1024, // 5 MB
                 // Upload to asset/images, path start from disk, example, here is G:\\Sails\\....
-                dirname: require('path').resolve(sails.config.appPath, 'asset/images')
+                dirname: require('path').resolve(sails.config.appPath, 'asset/images'),
+
+                // With custom file name + filename
+                saveAs: Date.now() + '-' + req.file('image')._readableState.buffer.head.data.filename
             }, async (err, files) => {
                 if (err) return res.serverError(err);
                 const imageLink = files[0].fd;
