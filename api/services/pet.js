@@ -20,12 +20,22 @@ module.exports = {
         } else return res.badRequest({error: 'Not enough query params!'})
     },
     uploadImageServices: async (req, res) => {
-        if (req.params.id && req.body.imageLink){
+        if (req.params.id && req.file('image')){
             const id = req.params.id;
-            const imageLink = req.body.imageLink;
-            const pet = await Pet.updateOne({_id: id}, {imageLink: imageLink})
 
-            return res.json(pet)
+            req.file('image').upload({
+                //maxBytes: 10000000, //~10mb
+                // Upload to asset/images, path start from disk, example, here is G:\\Sails\\....
+                dirname: require('path').resolve(sails.config.appPath, 'asset/images')
+            }, async (err, files) => {
+                if (err) return res.serverError(err);
+                const imageLink = files[0].fd;
+                
+                //const imageLink = req.body.imageLink;
+                const pet = await Pet.updateOne({_id: id}, {imageLink: imageLink})
+                
+                return res.json(pet)
+            });
         } else res.badRequest({error: 'No any image link!!'})
     },
     updatePetServices: async (req, res) => {
