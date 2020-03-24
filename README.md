@@ -32,16 +32,25 @@ Note:  Generators are usually run using the globally-installed `sails` CLI (comm
 body {
   name: NameOfPet
 }
+--> Create a pet
+
+### getAllPet: 'get /pet/all-pet'
+--> return all pets in DB
 
 ### findPetById API: 'get /pet/{petId}'
 petId = params.petId
+--> Return a pet by id
 
-### updatePet API: 'put /pet'
+### updatePet API: 'put /pet/{petId}'
+petId = params.petId
+--> Update name or imagelink of pet
 
 ### uploadPet API: 'post /pet/{petId}/uploadImage'
 body: {
   imageLink: imageLinkOfPet
 }
+--> Update imagelink of pet
 
 ### deletePet API: 'delete /pet/{petId}'
 petId = params.petId
+--> Delete a pet by id
